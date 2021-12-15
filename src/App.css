@@ -1,0 +1,16 @@
+img{
+  width: 80px;
+  height: 80px;
+  margin: 5px;
+  
+}
+
+.header {
+  text-align: center;
+  font-size: xx-large;
+  
+}
+
+.hold-dice {
+  background-color: red;
+}
