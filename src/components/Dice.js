@@ -15,23 +15,10 @@ import diceblack6 from '../pictures/diceblack6.png'
 ////vrati se na newRoll set roll, imas pomoc kod  onog
 
 
-
-
-
-
-
-
 const images = [dice1, dice2, dice3, dice4, dice5, dice6]; 
 const imagesBlack = [diceblack1, diceblack2, diceblack3, diceblack4, diceblack5, diceblack6];
 const Dice = ({frozen, setFrozen, values, setValues}) => {
 
-    const style = {
-        backgroundColor: 'blue',
-        borderRadius: '10px'
-    }
-    const style1 = {
-
-    }
 const newGame = () => {
         setValues([
             Math.floor(Math.random() * 6),
@@ -60,7 +47,7 @@ const newGame = () => {
         const handlenewRoll = (current, fixed) => {
             let numbers = [0,0,0,0,0];
             current.forEach((val, i) => {
-                numbers[i] = fixed[i] ? current[i] : Math.floor(Math.random() * 6) + 1;
+                numbers[i] = fixed[i] ? current[i] : Math.floor(Math.random() * 6) ;
               });
           
               return numbers;
