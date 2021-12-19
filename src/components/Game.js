@@ -3,12 +3,13 @@ import Header from './Header';
 import Dice from './Dice';
 import Table from './Table';
 import categoryScore from './categoryScore';
-import totalScore from './totalScore';
+import Score from './Score';
+
 
 const Game = () => {
     const [frozen, setFrozen] = useState([false, false, false, false, false]);
     const [values, setValues] = useState ([0, 0, 0, 0, 0])
-    
+    const [rollsLeft, setRollsLeft] = useState(2);
     const [scoreRules, setScoreRules] = useState([
         {
             label: 'Ones',
@@ -102,7 +103,8 @@ const Game = () => {
             values: null,
         }
     ])
-
+    console.log(scoreRules)
+    //RESET IGRE
    // const reset = () => setScoreRules(scoreRules.map(rule => ({ ...rule, values: null })))
 
     const onRuleClick = (rule) => {
@@ -113,7 +115,7 @@ const Game = () => {
                     values: values
                 };
             }
-
+            setRollsLeft(2)
             return r;
         })
 
@@ -121,20 +123,25 @@ const Game = () => {
     }
 
     return (
-        <>        <div>
+        <>       
+         <div>
                <Header />
+               
                  <Dice
                  frozen={frozen}
                  setFrozen={setFrozen}
                  values={values}
                  setValues={setValues}
+                 rollsLeft={rollsLeft}
+                 setRollsLeft={setRollsLeft}
                  />
                  
         </div>
+        
         <div>
             <Table rules={scoreRules} onRuleClick={onRuleClick} />
         </div>
-        <totalScore />
+       
         </>
 
     )
