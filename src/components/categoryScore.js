@@ -27,7 +27,7 @@ const fourOfAKind = (values) => {
     let dice = sortValues(values);
 
     [0,1].forEach((i) => {
-        if(dice[i] === dice [ i + 1] &&
+        if(dice[i] === dice[i + 1] &&
             dice[i] === dice[i + 2] &&
             dice[i] === dice[i + 3]){
                 score = sumDice(values) + 5;

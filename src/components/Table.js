@@ -1,11 +1,12 @@
 import React from 'react'
 
 const Table = ({ rules, onRuleClick }) => {
+
     return (
         <div>
             <table>
                 <thead>
-                    <tr>
+                    <tr >
                         <td>Category</td>
                         <td>Description</td>
                         <td>Example Score</td>
@@ -17,6 +18,7 @@ const Table = ({ rules, onRuleClick }) => {
                             <td>{rule.label}</td>
                             <td>{rule.description}</td>
                             <td>{rule.values ? rule.calculator(rule.values) : rule.example}</td>
+                           
                         </tr>
                     ))}
                 </tbody>

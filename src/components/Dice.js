@@ -17,24 +17,8 @@ import diceblack6 from '../pictures/diceblack6.png'
 
 const images = [dice1, dice2, dice3, dice4, dice5, dice6]; 
 const imagesBlack = [diceblack1, diceblack2, diceblack3, diceblack4, diceblack5, diceblack6];
-const Dice = ({frozen, setFrozen, values, setValues, rollsLeft, setRollsLeft}) => {
-
-
-    const newGame = () => {
-        setValues([
-            Math.floor(Math.random() * 6),
-            Math.floor(Math.random() * 6), 
-            Math.floor(Math.random() * 6),
-            Math.floor(Math.random() * 6), 
-            Math.floor(Math.random() * 6)
-        ]);
-        setFrozen([false, false, false, false, false])
-        
-    }
-
-    useEffect(() => newGame(), []);
-
-    const chooseDice = (e, i) => {
+const Dice = ({frozen, setFrozen, values, setValues, rollsLeft, setRollsLeft, counter}) => {
+        const chooseDice = (e, i) => {
          const array = [...frozen];
          array[i] = (!frozen[i])
          setFrozen(array)
@@ -54,11 +38,8 @@ const Dice = ({frozen, setFrozen, values, setValues, rollsLeft, setRollsLeft}) =
           
               return numbers;
         }
-   
-  
-    //style={bgColorToggle ? style : style1 }
     return (
-        <div>       
+        <div className='dice-div'>       
             {frozen.map((value, i) => {
                 return(
                  <img key={i} 
@@ -69,8 +50,8 @@ const Dice = ({frozen, setFrozen, values, setValues, rollsLeft, setRollsLeft}) =
             )
                
            })}
-           <div>
-           <button onClick={roll} disabled = {rollsLeft === 0 ? 'disabled' : ''}>{rollsLeft} rolls left</button>
+           <div className='button-div'>
+           <button onClick={roll} disabled = {rollsLeft === 0 || counter === 0 ? 'disabled' : ''}>{rollsLeft} rolls left</button>
            </div>
         </div>
     )

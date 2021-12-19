@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Header from './Header';
 import Dice from './Dice';
 import Table from './Table';
@@ -7,6 +7,7 @@ import Score from './Score';
 
 
 const Game = () => {
+    const [counter, setCounter] = useState(13)
     const [frozen, setFrozen] = useState([false, false, false, false, false]);
     const [values, setValues] = useState ([0, 0, 0, 0, 0])
     const [rollsLeft, setRollsLeft] = useState(2);
@@ -55,21 +56,21 @@ const Game = () => {
         },
         {
             label: '3 of Kind',
-            description: 'If 3+ od one value, score sum od all dice',
+            description: 'If 3+ of one value, score sum of all dice',
             example:'1 2 3 3 3 = 12',
             calculator: categoryScore.threeOfAKind,
             values: null,
         },
         {
             label: '4 of Kind',
-            description: 'If 4+ od one value, score sum od all dice',
+            description: 'If 4+ of one value, score sum of all dice',
             example:'1 2 2 2 2 = 9',
             calculator: categoryScore.fourOfAKind,
             values: null,
         },
         {
             label: 'Full House',
-            description: 'If 3 od one value and 2 of another, score 25',
+            description: 'If 3 of one value and 2 of another, score 25',
             example:'2 2 3 3 3 = 25',
             calculator: categoryScore.fullHouse,
             values: null,
@@ -90,43 +91,62 @@ const Game = () => {
         },
         {
             label: 'Yatzy',
-            description: 'If all avalues match, score 50',
+            description: 'If all values match, score 50',
             example:'2 2 2 2 2 = 50',
             calculator: categoryScore.yatzy,
             values: null,
         },
         {
             label: 'Chance',
-            description: 'score sum of all dice',
+            description: 'Score sum of all dice',
             example:'1 2 3 4 6 = 16',
             calculator: categoryScore.chance,
             values: null,
         }
     ])
-    console.log(scoreRules)
+    const newGame = () => {
+        setValues([
+            Math.floor(Math.random() * 6),
+            Math.floor(Math.random() * 6), 
+            Math.floor(Math.random() * 6),
+            Math.floor(Math.random() * 6), 
+            Math.floor(Math.random() * 6)
+        ]);
+        setFrozen([false, false, false, false, false])
+        
+    }
+
+    useEffect(() => newGame(), []);
     //RESET IGRE
-   // const reset = () => setScoreRules(scoreRules.map(rule => ({ ...rule, values: null })))
+   const reset = () => {
+       setScoreRules(scoreRules.map(rule => ({ ...rule, values: null })))
+        setCounter(13)
+        newGame();
+    }
 
     const onRuleClick = (rule) => {
         const newRules = scoreRules.map((r) => {
             if (r === rule && !r.values) {
+                setCounter(counter - 1)
+                newGame();
                 return {
                     ...r,
                     values: values
                 };
+                
             }
-            setRollsLeft(2)
+         setRollsLeft(2)
             return r;
         })
 
         setScoreRules(newRules);
     }
 
+
     return (
         <>       
          <div>
                <Header />
-               
                  <Dice
                  frozen={frozen}
                  setFrozen={setFrozen}
@@ -134,6 +154,8 @@ const Game = () => {
                  setValues={setValues}
                  rollsLeft={rollsLeft}
                  setRollsLeft={setRollsLeft}
+                 counter = {counter}
+                 
                  />
                  
         </div>
@@ -141,7 +163,14 @@ const Game = () => {
         <div>
             <Table rules={scoreRules} onRuleClick={onRuleClick} />
         </div>
-       
+             <Score 
+                rules={scoreRules}
+                counter={counter}
+            />
+        <div className='button-div'>
+            {counter === 0 &&
+            <button onClick={reset} >New Game</button>}
+         </div>
         </>
 
     )
