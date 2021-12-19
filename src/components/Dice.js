@@ -12,7 +12,6 @@ import dice5 from '../pictures/dice5.png'
 import diceblack5 from '../pictures/diceblack5.png'
 import dice6 from '../pictures/dice6.png'
 import diceblack6 from '../pictures/diceblack6.png'
-////vrati se na newRoll set roll, imas pomoc kod  onog
 
 
 const images = [dice1, dice2, dice3, dice4, dice5, dice6]; 
